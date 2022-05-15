@@ -1,0 +1,73 @@
+import * as React from "react";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import { getWorkTypes } from "../firebase/getFirestore";
+import { WorkType } from "../types/Worktype";
+import { CircularProgress } from "@mui/material";
+import { Category } from "../types/Category";
+import { getCategories } from "../firebase/getFirestore";
+import { useAuth } from "../auth/AuthProvider";
+import { useQueryClient } from "react-query";
+
+const WorktypeTable = () => {
+  return (
+    <>
+      <TableList></TableList>
+    </>
+  );
+};
+
+const TitleName = () => {};
+
+const TableList = () => {
+  const { user } = useAuth();
+  const [worktypes, setWorktypes] = React.useState<WorkType[] | any>(null);
+  const [isLoding, setIsLoading] = React.useState(true);
+  const queryClient = useQueryClient()
+  const categories = queryClient.getQueryData<Category[]>('categories')
+  React.useEffect(() => {
+    if (!user?.email) return;
+    getWorkTypes(user?.email).then((snapshot) => {
+      const worktypes: WorkType[] = snapshot.docs.map((doc) => {
+        return doc.data() as WorkType;
+      });
+        setWorktypes(worktypes);
+        setIsLoading(false);
+    });
+  }, []);
+  if (isLoding) return <CircularProgress />;
+  return (
+    <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+        <TableHead>
+          <TableRow>
+            <TableCell>カテゴリ</TableCell>
+            <TableCell>作業名</TableCell>
+            <TableCell>備考</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {worktypes.map((row: WorkType, idx: number) => (
+            <TableRow
+              key={idx}
+              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            >
+              <TableCell component="th" scope="row">
+                {categories?.find((category : Category) => category.category_id === row.category_id)?.category_name}
+              </TableCell>
+              <TableCell>{row.worktype_name}</TableCell>
+              <TableCell>{row.description}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
+};
+
+export default WorktypeTable;

@@ -1,24 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import logo from "./logo.svg";
+import Header from "./components/Header";
+import WorkloadList from "./pages/WorkloadList";
+import { Box } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import { AuthProvider } from "./auth/AuthProvider";
+import {  Route } from "react-router-dom";
+import "./reset.css";
+import Login from "./pages/Login";
+import { useAuth } from "./auth/AuthProvider";
+import {Routes} from "./auth/Routes"
+import { QueryClient, QueryClientProvider } from 'react-query'
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      refetchOnWindowFocus: false,
+    },
+  },
+})
 
 function App() {
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <QueryClientProvider client={queryClient}>
+      <Routes></Routes>
+      </QueryClientProvider>
     </div>
   );
 }
