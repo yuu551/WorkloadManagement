@@ -1,5 +1,4 @@
 import { useQuery } from 'react-query'
-import axios from 'axios'
 import { Category } from '../types/Category'
 import { getCategories } from '../firebase/getFirestore'
 

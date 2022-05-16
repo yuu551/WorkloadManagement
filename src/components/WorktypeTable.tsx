@@ -25,22 +25,10 @@ const WorktypeTable = () => {
 const TitleName = () => {};
 
 const TableList = () => {
-  const { user } = useAuth();
-  const [worktypes, setWorktypes] = React.useState<WorkType[] | any>(null);
-  const [isLoding, setIsLoading] = React.useState(true);
   const queryClient = useQueryClient()
   const categories = queryClient.getQueryData<Category[]>('categories')
-  React.useEffect(() => {
-    if (!user?.email) return;
-    getWorkTypes(user?.email).then((snapshot) => {
-      const worktypes: WorkType[] = snapshot.docs.map((doc) => {
-        return doc.data() as WorkType;
-      });
-        setWorktypes(worktypes);
-        setIsLoading(false);
-    });
-  }, []);
-  if (isLoding) return <CircularProgress />;
+  const worktypes = queryClient.getQueryData<WorkType[]>('worktypes')
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
@@ -52,7 +40,7 @@ const TableList = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {worktypes.map((row: WorkType, idx: number) => (
+          {worktypes?.map((row: WorkType, idx: number) => (
             <TableRow
               key={idx}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

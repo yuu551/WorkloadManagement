@@ -20,6 +20,7 @@ import { Category } from "../types/Category";
 import { CircularProgress } from "@mui/material"
 import sha256 from 'crypto-js/sha256';
 import { useQueryClient } from "react-query";
+import { WorkType } from "../types/Worktype";
 
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
@@ -42,6 +43,7 @@ const WorkloadForm = () => {
   const [open, setOpen] = React.useState(false);
   const queryClient = useQueryClient()
   const categories = queryClient.getQueryData<Category[]>('categories')
+  const worktypes = queryClient.getQueryData<WorkType[]>('worktypes')
 
   const handleClose = (
     event?: React.SyntheticEvent | Event,
@@ -126,7 +128,7 @@ const WorkloadForm = () => {
               )}
             />
           </Box>
-          <Box sx={{ width: "400px", textAlign: "center" }}>
+          <Box sx={{ width: "400px" }}>
             <Controller
               name="content"
               control={control}
@@ -138,7 +140,19 @@ const WorkloadForm = () => {
                   margin="normal"
                   fullWidth
                   placeholder="活動内容"
-                />
+                  select
+                >
+                  {worktypes?.map((worktype : WorkType) => {
+                    return (
+                      <MenuItem
+                        key={worktype.worktype_id}
+                        value={worktype.worktype_name}
+                      >
+                        {worktype.worktype_name}
+                      </MenuItem>
+                    );
+                  })}
+                </TextField>
               )}
             />
           </Box>

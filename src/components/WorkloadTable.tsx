@@ -12,6 +12,8 @@ import { CircularProgress } from "@mui/material";
 import { Category } from "../types/Category";
 import { useAuth } from "../auth/AuthProvider";
 import { useQueryCategories } from "../hooks/useQueryCategories";
+import { useQueryWorktypes } from "../hooks/userQueryWorktypes";
+import { useQueryWorkloads } from "../hooks/useQueryWorkloads";
 
 const WorkloadTable = () => {
   return (
@@ -25,20 +27,11 @@ const TitleName = () => {};
 
 const TableList = () => {
   const { user } = useAuth();
-  const [workloads, setWorkloads] = React.useState<Workload[] | any>(null);
-  const { status,data } = useQueryCategories();
-  const [isLoding, setIsLoading] = React.useState(true);
-  React.useEffect(() => {
-    if (!user?.email) return;
-    getWorkloads(user?.email).then((snapshot) => {
-      const workloads: Workload[] = snapshot.docs.map((doc) => {
-        return doc.data() as Workload;
-      });
-        setWorkloads(workloads);
-        setIsLoading(false);
-    });
-  }, []);
-  if (isLoding || status === "loading") return <CircularProgress />;
+  const { status : categoryStatus,data:categories } = useQueryCategories();
+  const { status : worktypeStatus } = useQueryWorktypes(user?.email);
+  const { status : workloadStatus,data:workloads } = useQueryWorkloads(user?.email);
+
+  if (worktypeStatus === "loading" || categoryStatus === "loading" || workloadStatus === "loading") return <CircularProgress />;
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
@@ -63,7 +56,7 @@ const TableList = () => {
               <TableCell>{row.work_time}</TableCell>
               <TableCell>
                 {
-                  data?.find(
+                  categories?.find(
                     (category: Category) =>{
                      return category?.category_id === row.category_id
                     }
