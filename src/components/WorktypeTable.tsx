@@ -14,6 +14,7 @@ import { getCategories } from "../firebase/getFirestore";
 import { useAuth } from "../auth/AuthProvider";
 import { useQueryClient } from "react-query";
 
+
 const WorktypeTable = () => {
   return (
     <>
@@ -25,9 +26,10 @@ const WorktypeTable = () => {
 const TitleName = () => {};
 
 const TableList = () => {
-  const queryClient = useQueryClient()
-  const categories = queryClient.getQueryData<Category[]>('categories')
-  const worktypes = queryClient.getQueryData<WorkType[]>('worktypes')
+  const queryClient = useQueryClient();
+  const categories = queryClient.getQueryData<Category[]>("categories");
+  const worktypes = queryClient.getQueryData<WorkType[]>("worktypes");
+
 
   return (
     <TableContainer component={Paper}>
@@ -46,7 +48,12 @@ const TableList = () => {
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {categories?.find((category : Category) => category.category_id === row.category_id)?.category_name}
+                {
+                  categories?.find(
+                    (category: Category) =>
+                      category.category_id === row.category_id
+                  )?.category_name
+                }
               </TableCell>
               <TableCell>{row.worktype_name}</TableCell>
               <TableCell>{row.description}</TableCell>
