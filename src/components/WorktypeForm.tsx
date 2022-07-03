@@ -16,6 +16,7 @@ import { Firebase } from "../firebase/init";
 import { WorkType } from "../types/Worktype";
 import MenuItem from "@mui/material/MenuItem";
 import { useQueryClient } from "react-query";
+import { useMutateWorkTypes } from "../hooks/useMutateWorktypes";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -35,6 +36,7 @@ const WorkTypeForm = () => {
   const [open, setOpen] = React.useState(false);
   const queryClient = useQueryClient()
   const categories = queryClient.getQueryData<Category[]>('categories')
+  const { createWorkTypeMutation } = useMutateWorkTypes();
 
   const handleClose = (
     event?: React.SyntheticEvent | Event,
@@ -56,7 +58,7 @@ const WorkTypeForm = () => {
     const worktype = transWorktype(data,user);
     if (!worktype) return;
     try {
-      await registWorktype(worktype);
+      await createWorkTypeMutation.mutateAsync(worktype);
       reset();
       setOpen(true);
     } catch (error) {

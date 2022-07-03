@@ -5,10 +5,8 @@ import { Category } from "../types/Category";
 import { WorkType } from "../types/Worktype";
 
 const registWorkload = async (data: Workload) => {
-  const workloadsRef = db.collection("workloads").doc();
-  await workloadsRef.set(data);
   await db.runTransaction(async (transaction) => {
-    const workloadsRef = db.collection("workloads");
+    const workloadsRef = await db.collection("workloads");
     const newWorkloadsRef = await workloadsRef.doc();
 
     await transaction.get(newWorkloadsRef).then(async () => {
@@ -29,8 +27,10 @@ const registWorkload = async (data: Workload) => {
         workload_id: latestNum.workload_id + 1,
       };
       await transaction.set(newWorkloadsRef, newData);
+      
     });
   });
+  return data;
 };
 
 const registCategory = async (data: Category) => {
@@ -57,6 +57,7 @@ const registCategory = async (data: Category) => {
       await transaction.set(newCategoryRef, newData);
     });
   });
+  return data;
 };
 
 const registWorktype = async (data: WorkType) => {
@@ -83,6 +84,7 @@ const registWorktype = async (data: WorkType) => {
       await transaction.set(newWorkTypeRef, newData);
     });
   });
+  return data;
 };
 
 export { registWorkload, registCategory, registWorktype };

@@ -17,11 +17,11 @@ import Stack from "@mui/material/Stack";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { Category } from "../types/Category";
-import { CircularProgress } from "@mui/material"
-import sha256 from 'crypto-js/sha256';
+import { CircularProgress } from "@mui/material";
+import sha256 from "crypto-js/sha256";
 import { useQueryClient } from "react-query";
 import { WorkType } from "../types/Worktype";
-
+import { useMutateWorkloads } from "../hooks/useMutateWorkloads";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -41,9 +41,10 @@ type workloadFormType = {
 const WorkloadForm = () => {
   const { user } = useAuth();
   const [open, setOpen] = React.useState(false);
-  const queryClient = useQueryClient()
-  const categories = queryClient.getQueryData<Category[]>('categories')
-  const worktypes = queryClient.getQueryData<WorkType[]>('worktypes')
+  const queryClient = useQueryClient();
+  const categories = queryClient.getQueryData<Category[]>("categories");
+  const worktypes = queryClient.getQueryData<WorkType[]>("worktypes");
+  const { createWorkloadMutation } = useMutateWorkloads();
 
   const handleClose = (
     event?: React.SyntheticEvent | Event,
@@ -65,7 +66,7 @@ const WorkloadForm = () => {
     const workload = transWorkloadType(data, user);
     if (!workload) return;
     try {
-      await registWorkload(workload);
+      await createWorkloadMutation.mutateAsync(workload);
       reset();
       setOpen(true);
     } catch (error) {
@@ -75,9 +76,13 @@ const WorkloadForm = () => {
 
   return (
     <>
-      <Stack spacing={2} display="flex"
-            alignItems="center"
-            justifyContent="center" sx={{ width: "100%" }}>
+      <Stack
+        spacing={2}
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        sx={{ width: "100%" }}
+      >
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
           open={open}
@@ -114,7 +119,7 @@ const WorkloadForm = () => {
                   margin="normal"
                   select
                 >
-                  {categories?.map((category : Category) => {
+                  {categories?.map((category: Category) => {
                     return (
                       <MenuItem
                         key={category.category_id}
@@ -142,7 +147,7 @@ const WorkloadForm = () => {
                   placeholder="活動内容"
                   select
                 >
-                  {worktypes?.map((worktype : WorkType) => {
+                  {worktypes?.map((worktype: WorkType) => {
                     return (
                       <MenuItem
                         key={worktype.worktype_id}

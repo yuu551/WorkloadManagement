@@ -12,6 +12,7 @@ import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { Category } from "../types/Category";
 import { CircularProgress } from "@mui/material";
 import sha256 from "crypto-js/sha256";
+import { useMutateCategories } from "../hooks/useMutateCategories";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -27,6 +28,7 @@ type categoryFormType = {
 
 const WorkloadForm = () => {
   const [open, setOpen] = React.useState(false);
+  const { createWorkloadMutation } = useMutateCategories();
 
   const handleClose = (
     event?: React.SyntheticEvent | Event,
@@ -48,7 +50,7 @@ const WorkloadForm = () => {
     const category = transCategoryType(data);
     if (!category) return;
     try {
-      await registCategory(category);
+      await createWorkloadMutation.mutateAsync(category);
       reset();
       setOpen(true);
     } catch (error) {
