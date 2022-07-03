@@ -1,5 +1,4 @@
 import { db } from "./init";
-import { collection, getDocs, query, where } from "firebase/firestore";
 import { Workload } from "../types/Workload";
 import { Category } from "../types/Category";
 import { WorkType } from "../types/Worktype";

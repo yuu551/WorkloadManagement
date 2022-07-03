@@ -1,4 +1,3 @@
-import * as React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -6,7 +5,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { getWorkloads } from "../firebase/getFirestore";
 import { Workload } from "../types/Workload";
 import { CircularProgress } from "@mui/material";
 import { Category } from "../types/Category";
@@ -14,7 +12,6 @@ import { useAuth } from "../auth/AuthProvider";
 import { useQueryCategories } from "../hooks/useQueryCategories";
 import { useQueryWorktypes } from "../hooks/userQueryWorktypes";
 import { useQueryWorkloads } from "../hooks/useQueryWorkloads";
-import { useQueryClient } from "react-query";
 
 const WorkloadTable = () => {
   return (

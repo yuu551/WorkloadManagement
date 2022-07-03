@@ -1,17 +1,12 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { getCategories } from "../firebase/getFirestore";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import Button from "@mui/material/Button";
-import { useAuth } from "../auth/AuthProvider";
-import { registCategory } from "../firebase/registerFirestore";
 import Stack from "@mui/material/Stack";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { Category } from "../types/Category";
-import { CircularProgress } from "@mui/material";
-import sha256 from "crypto-js/sha256";
 import { useMutateCategories } from "../hooks/useMutateCategories";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(

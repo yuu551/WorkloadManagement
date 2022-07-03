@@ -1,4 +1,3 @@
-import * as React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -6,12 +5,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { getWorkTypes } from "../firebase/getFirestore";
 import { WorkType } from "../types/Worktype";
-import { CircularProgress } from "@mui/material";
 import { Category } from "../types/Category";
-import { getCategories } from "../firebase/getFirestore";
-import { useAuth } from "../auth/AuthProvider";
 import { useQueryClient } from "react-query";
 
 
