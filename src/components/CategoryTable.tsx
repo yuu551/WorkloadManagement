@@ -16,8 +16,6 @@ const WorkloadTable = () => {
   );
 };
 
-const TitleName = () => {};
-
 const TableList = () => {
   const queryClient = useQueryClient()
   const categories = queryClient.getQueryData<Category[]>('categories');

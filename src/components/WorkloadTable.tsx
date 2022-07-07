@@ -21,8 +21,6 @@ const WorkloadTable = () => {
   );
 };
 
-const TitleName = () => {};
-
 const TableList = () => {
   const { user } = useAuth();
   const { status: categoryStatus, data: categories } = useQueryCategories();
