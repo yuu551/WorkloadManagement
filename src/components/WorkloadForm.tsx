@@ -168,6 +168,7 @@ const WorkloadForm = () => {
                   <DatePicker
                     {...field}
                     label="作業日"
+                    inputFormat="yyyy年MM月dd日"
                     renderInput={(params) => (
                       <TextField
                         {...params}
