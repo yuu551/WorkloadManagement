@@ -90,13 +90,18 @@ const WorkloadForm = () => {
                 name="category_name"
                 control={control}
                 defaultValue=""
-                render={({ field }) => (
+                rules={{
+                  required:"カテゴリーは必須です！"
+                }}
+                render={({ field,fieldState:{error} }) => (
                   <TextField
                     {...field}
                     label="カテゴリ名"
                     margin="normal"
                     fullWidth
                     placeholder="カテゴリ名"
+                    error={Boolean(error)}
+                    helperText={error?.message}
                   />
                 )}
               />

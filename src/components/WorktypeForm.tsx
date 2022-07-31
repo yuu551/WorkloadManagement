@@ -93,7 +93,10 @@ const WorkTypeForm = () => {
               control={control}
               name="category_id"
               defaultValue=""
-              render={({ field }) => (
+              rules={{
+                required:"カテゴリーは必須です！"
+              }}
+              render={({ field,fieldState:{error} }) => (
                 <TextField
                   {...field}
                   label="カテゴリー"
@@ -101,6 +104,8 @@ const WorkTypeForm = () => {
                   fullWidth
                   margin="normal"
                   select
+                  error={Boolean(error)}
+                  helperText={error?.message}
                 >
                   {categories?.map((category : Category) => {
                     return (
@@ -121,13 +126,18 @@ const WorkTypeForm = () => {
               name="worktype_name"
               control={control}
               defaultValue=""
-              render={({ field }) => (
+              rules={{
+                required:"作業名は必須です！"
+              }}
+              render={({ field,fieldState:{error} }) => (
                 <TextField
                   {...field}
                   label="作業名"
                   margin="normal"
                   fullWidth
                   placeholder="作業名"
+                  error={Boolean(error)}
+                  helperText={error?.message}
                 />
               )}
             />
