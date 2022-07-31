@@ -41,7 +41,15 @@ const WorkloadForm = () => {
   const queryClient = useQueryClient();
   const categories = queryClient.getQueryData<Category[]>("categories");
   const worktypes = queryClient.getQueryData<WorkType[]>("worktypes");
+  const [changeWorktypes,setChangeWorktypes] = React.useState<WorkType[] | undefined>(worktypes)
   const { createWorkloadMutation } = useMutateWorkloads();
+
+  const changeCategory = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>{
+    const newWorktypes = changeWorktypes?.filter(val => {
+      return val.category_id === parseInt(e.target.value);
+    })
+    setChangeWorktypes(newWorktypes)
+  }
 
   const handleClose = (
     event?: React.SyntheticEvent | Event,
@@ -107,7 +115,10 @@ const WorkloadForm = () => {
               control={control}
               name="category"
               defaultValue=""
-              render={({ field }) => (
+              rules={{
+                required: "カテゴリーは必須です！",
+              }}
+              render={({ field, fieldState: { error } }) => (
                 <TextField
                   {...field}
                   label="カテゴリー"
@@ -115,6 +126,10 @@ const WorkloadForm = () => {
                   fullWidth
                   margin="normal"
                   select
+                  error={Boolean(error)}
+                  helperText={error?.message}
+                  //※TODO
+                  //onChange={(e) => changeCategory(e)}
                 >
                   {categories?.map((category: Category) => {
                     return (
@@ -135,7 +150,10 @@ const WorkloadForm = () => {
               name="content"
               control={control}
               defaultValue=""
-              render={({ field }) => (
+              rules={{
+                required: "作業内容は必須です！",
+              }}
+              render={({ field, fieldState: { error } }) => (
                 <TextField
                   {...field}
                   label="作業内容"
@@ -143,6 +161,8 @@ const WorkloadForm = () => {
                   fullWidth
                   placeholder="作業内容"
                   select
+                  error={Boolean(error)}
+                  helperText={error?.message}
                 >
                   {worktypes?.map((worktype: WorkType) => {
                     return (
@@ -187,7 +207,14 @@ const WorkloadForm = () => {
               name="work_time"
               control={control}
               defaultValue=""
-              render={({ field }) => (
+              rules={{
+                required: "作業時間は必須です！",
+                pattern: {
+                  value: /^(0|[1-9]\d*)(\.\d+)?$/,
+                  message: "数値を入力してください！",
+                },
+              }}
+              render={({ field, fieldState: { error } }) => (
                 <TextField
                   {...field}
                   label="作業時間"
@@ -195,11 +222,13 @@ const WorkloadForm = () => {
                   fullWidth
                   defaultValue=""
                   placeholder="作業時間"
+                  error={Boolean(error)}
+                  helperText={error?.message}
                 />
               )}
             />
           </Box>
-          <Box sx={{ width: "400px", textAlign: "cenetr" }}>
+          <Box sx={{ width: "400px", textAlign: "center" }}>
             <Controller
               name="description"
               control={control}
