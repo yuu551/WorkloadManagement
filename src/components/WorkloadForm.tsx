@@ -138,10 +138,10 @@ const WorkloadForm = () => {
               render={({ field }) => (
                 <TextField
                   {...field}
-                  label="活動内容"
+                  label="作業内容"
                   margin="normal"
                   fullWidth
-                  placeholder="活動内容"
+                  placeholder="作業内容"
                   select
                 >
                   {worktypes?.map((worktype: WorkType) => {
