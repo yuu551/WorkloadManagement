@@ -41,4 +41,4 @@ const getWorkTypes = async (mailAddress: string) => {
   return worktypes;
 };
 
-export { getWorkloads, getCategories,getWorkTypes };
+export { getWorkloads, getCategories, getWorkTypes };

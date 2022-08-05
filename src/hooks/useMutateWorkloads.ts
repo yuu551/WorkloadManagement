@@ -4,8 +4,8 @@ import { registWorkload } from "../firebase/registerFirestore";
 
 export const useMutateWorkloads = () => {
   const queryClient = useQueryClient();
-  const createWorkloadMutation =  useMutation(
-    async(workload: Workload) => await registWorkload(workload),
+  const createWorkloadMutation = useMutation(
+    async (workload: Workload) => await registWorkload(workload),
     {
       onSuccess: (data: Workload) => {
         const previousWorkloads =
@@ -16,7 +16,7 @@ export const useMutateWorkloads = () => {
             data,
           ]);
         }
-        queryClient.invalidateQueries('workloads')
+        queryClient.invalidateQueries("workloads");
       },
     }
   );

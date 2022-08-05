@@ -31,8 +31,8 @@ type worktypeFormType = {
 const WorkTypeForm = () => {
   const { user } = useAuth();
   const [open, setOpen] = React.useState(false);
-  const queryClient = useQueryClient()
-  const categories = queryClient.getQueryData<Category[]>('categories')
+  const queryClient = useQueryClient();
+  const categories = queryClient.getQueryData<Category[]>("categories");
   const { createWorkTypeMutation } = useMutateWorkTypes();
 
   const handleClose = (
@@ -47,12 +47,11 @@ const WorkTypeForm = () => {
   const {
     control,
     handleSubmit,
-    reset,
-    formState: { errors },
+    reset
   } = useForm<worktypeFormType>();
   const onSubmit: SubmitHandler<worktypeFormType> = async (data) => {
-    console.log(transWorktype(data,user));
-    const worktype = transWorktype(data,user);
+    console.log(transWorktype(data, user));
+    const worktype = transWorktype(data, user);
     if (!worktype) return;
     try {
       await createWorkTypeMutation.mutateAsync(worktype);
@@ -62,7 +61,6 @@ const WorkTypeForm = () => {
       console.log(error);
     }
   };
-
 
   return (
     <>
@@ -88,15 +86,15 @@ const WorkTypeForm = () => {
           </Alert>
         </Snackbar>
         <form onSubmit={handleSubmit(onSubmit)}>
-            <Box sx={{ width: "400px"}}>
+          <Box sx={{ width: "400px" }}>
             <Controller
               control={control}
               name="category_id"
               defaultValue=""
               rules={{
-                required:"カテゴリーは必須です！"
+                required: "カテゴリーは必須です！",
               }}
-              render={({ field,fieldState:{error} }) => (
+              render={({ field, fieldState: { error } }) => (
                 <TextField
                   {...field}
                   label="カテゴリー"
@@ -107,7 +105,7 @@ const WorkTypeForm = () => {
                   error={Boolean(error)}
                   helperText={error?.message}
                 >
-                  {categories?.map((category : Category) => {
+                  {categories?.map((category: Category) => {
                     return (
                       <MenuItem
                         key={category.category_id}
@@ -120,16 +118,16 @@ const WorkTypeForm = () => {
                 </TextField>
               )}
             />
-            </Box>
+          </Box>
           <Box sx={{ width: "400px", textAlign: "center" }}>
             <Controller
               name="worktype_name"
               control={control}
               defaultValue=""
               rules={{
-                required:"作業名は必須です！"
+                required: "作業名は必須です！",
               }}
-              render={({ field,fieldState:{error} }) => (
+              render={({ field, fieldState: { error } }) => (
                 <TextField
                   {...field}
                   label="作業名"

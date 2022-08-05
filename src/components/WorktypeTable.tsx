@@ -9,7 +9,6 @@ import { WorkType } from "../types/Worktype";
 import { Category } from "../types/Category";
 import { useQueryClient } from "react-query";
 
-
 const WorktypeTable = () => {
   return (
     <>
@@ -18,13 +17,10 @@ const WorktypeTable = () => {
   );
 };
 
-const TitleName = () => {};
-
 const TableList = () => {
   const queryClient = useQueryClient();
   const categories = queryClient.getQueryData<Category[]>("categories");
   const worktypes = queryClient.getQueryData<WorkType[]>("worktypes");
-
 
   return (
     <TableContainer component={Paper}>

@@ -5,12 +5,12 @@ import WorkloadList from "./pages/WorkloadList";
 import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { AuthProvider } from "./auth/AuthProvider";
-import {  Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 import "./reset.css";
 import Login from "./pages/Login";
 import { useAuth } from "./auth/AuthProvider";
-import {Routes} from "./auth/Routes"
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { Routes } from "./auth/Routes";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -19,14 +19,13 @@ const queryClient = new QueryClient({
       refetchOnWindowFocus: false,
     },
   },
-})
+});
 
 function App() {
-
   return (
     <div className="App">
       <QueryClientProvider client={queryClient}>
-      <Routes></Routes>
+        <Routes></Routes>
       </QueryClientProvider>
     </div>
   );

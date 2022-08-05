@@ -26,7 +26,6 @@ const registWorkload = async (data: Workload) => {
         workload_id: latestNum.workload_id + 1,
       };
       await transaction.set(newWorkloadsRef, newData);
-      
     });
   });
   return data;

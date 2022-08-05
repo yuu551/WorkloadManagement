@@ -4,8 +4,8 @@ import { registWorktype } from "../firebase/registerFirestore";
 
 export const useMutateWorkTypes = () => {
   const queryClient = useQueryClient();
-  const createWorkTypeMutation =  useMutation(
-    async(worktype: WorkType) => await registWorktype(worktype),
+  const createWorkTypeMutation = useMutation(
+    async (worktype: WorkType) => await registWorktype(worktype),
     {
       onSuccess: (data: WorkType) => {
         const previousCategories =
@@ -16,7 +16,7 @@ export const useMutateWorkTypes = () => {
             data,
           ]);
         }
-        queryClient.invalidateQueries('worktypes')
+        queryClient.invalidateQueries("worktypes");
       },
     }
   );

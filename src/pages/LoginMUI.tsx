@@ -9,7 +9,7 @@ const uiConfig = {
   signInOptions: [Firebase.auth.EmailAuthProvider.PROVIDER_ID],
 };
 
-const Login = () => {
+const LoginMUI = () => {
   return (
     <>
       <Box
@@ -27,4 +27,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginMUI;

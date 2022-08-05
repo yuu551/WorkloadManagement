@@ -7,13 +7,8 @@ import CategoryList from "../pages/CategoryList";
 import CategoryRegist from "../pages/CategoryRegist";
 import WorkTypeList from "../pages/WorktypeList";
 import WorktypeRegist from "../pages/WorktypeRegist";
-import { useAuth } from "./AuthProvider";
-import { getCategories } from "../firebase/getFirestore";
-import { useQueryCategories } from "../hooks/useQueryCategories";
-import { CircularProgress } from "@mui/material";
 
 export function Routes() {
-  const { user } = useAuth();
   return (
     <Switch>
       <Route path="/login" element={<Login />} />

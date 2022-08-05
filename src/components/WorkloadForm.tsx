@@ -41,15 +41,19 @@ const WorkloadForm = () => {
   const queryClient = useQueryClient();
   const categories = queryClient.getQueryData<Category[]>("categories");
   const worktypes = queryClient.getQueryData<WorkType[]>("worktypes");
-  const [changeWorktypes,setChangeWorktypes] = React.useState<WorkType[] | undefined>(worktypes)
+  const [changeWorktypes, setChangeWorktypes] = React.useState<
+    WorkType[] | undefined
+  >(worktypes);
   const { createWorkloadMutation } = useMutateWorkloads();
 
-  const changeCategory = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>{
-    const newWorktypes = changeWorktypes?.filter(val => {
+  const changeCategory = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const newWorktypes = changeWorktypes?.filter((val) => {
       return val.category_id === parseInt(e.target.value);
-    })
-    setChangeWorktypes(newWorktypes)
-  }
+    });
+    setChangeWorktypes(newWorktypes);
+  };
 
   const handleClose = (
     event?: React.SyntheticEvent | Event,
@@ -63,8 +67,7 @@ const WorkloadForm = () => {
   const {
     control,
     handleSubmit,
-    reset,
-    formState: { errors },
+    reset
   } = useForm<workloadFormType>();
   const onSubmit: SubmitHandler<workloadFormType> = async (data) => {
     console.log(transWorkloadType(data, user));

@@ -38,7 +38,6 @@ const WorkloadForm = () => {
     control,
     handleSubmit,
     reset,
-    formState: { errors },
   } = useForm<categoryFormType>();
   const onSubmit: SubmitHandler<categoryFormType> = async (data) => {
     console.log(transCategoryType(data));
@@ -91,9 +90,9 @@ const WorkloadForm = () => {
                 control={control}
                 defaultValue=""
                 rules={{
-                  required:"カテゴリーは必須です！"
+                  required: "カテゴリーは必須です！",
                 }}
-                render={({ field,fieldState:{error} }) => (
+                render={({ field, fieldState: { error } }) => (
                   <TextField
                     {...field}
                     label="カテゴリ名"
@@ -137,9 +136,7 @@ const WorkloadForm = () => {
   );
 };
 
-const transCategoryType = (
-  categoryData: categoryFormType
-) => {
+const transCategoryType = (categoryData: categoryFormType) => {
   const category: Category = {
     category_id: 0,
     category_name: categoryData.category_name,

@@ -17,8 +17,8 @@ const WorkloadTable = () => {
 };
 
 const TableList = () => {
-  const queryClient = useQueryClient()
-  const categories = queryClient.getQueryData<Category[]>('categories');
+  const queryClient = useQueryClient();
+  const categories = queryClient.getQueryData<Category[]>("categories");
 
   return (
     <TableContainer component={Paper}>
