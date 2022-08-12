@@ -11,6 +11,9 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import { useAuth } from "../auth/AuthProvider";
 import { Link } from "react-router-dom";
+import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
+import ListIcon from "@mui/icons-material/List";
+import AlarmOnIcon from '@mui/icons-material/AlarmOn';
 
 const pages = [
   ["工数一覧", "/"],
@@ -25,7 +28,7 @@ const Header = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
-  
+
   const { user } = useAuth();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -37,9 +40,10 @@ const Header = () => {
   };
 
   return (
-    <AppBar position="static" sx={{ background: "#008080" }}>
+    <AppBar position="static">
       <Container maxWidth={false}>
         <Toolbar disableGutters>
+        <AlarmOnIcon sx={{marginRight:"5px", display:{xs: "none", md: "flex"} }}/>
           <Typography
             variant="h6"
             noWrap
@@ -88,10 +92,41 @@ const Header = () => {
                   >
                     {page[0]}
                   </Typography>
+                  {page[0] === "工数一覧" ? (
+                    <ListIcon sx={{ "margin-left": "10px" }} />
+                  ) : (
+                    <></>
+                  )}
+                  {page[0] === "工数登録" ? (
+                    <AppRegistrationIcon sx={{ "margin-left": "10px" }} />
+                  ) : (
+                    <></>
+                  )}
+                  {page[0] === "カテゴリ一覧" ? (
+                    <ListIcon sx={{ "margin-left": "10px" }} />
+                  ) : (
+                    <></>
+                  )}
+                  {page[0] === "カテゴリ登録" ? (
+                    <AppRegistrationIcon sx={{ "margin-left": "10px" }} />
+                  ) : (
+                    <></>
+                  )}
+                  {page[0] === "作業一覧" ? (
+                    <ListIcon sx={{ "margin-left": "10px" }} />
+                  ) : (
+                    <></>
+                  )}
+                  {page[0] === "作業登録" ? (
+                    <AppRegistrationIcon sx={{ "margin-left": "10px" }} />
+                  ) : (
+                    <></>
+                  )}
                 </MenuItem>
               ))}
             </Menu>
           </Box>
+          <AlarmOnIcon sx={{marginRight:"5px", display: { xs: "flex", md: "none"} }}/>
           <Typography
             variant="h6"
             noWrap
@@ -105,10 +140,16 @@ const Header = () => {
               <Button
                 key={page[0]}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
+                sx={{ my: 2, color: "white", display: "flex" }}
                 component={Link}
                 to={page[1]}
               >
+                {page[0] === "工数一覧" ? <ListIcon /> : <></>}
+                {page[0] === "工数登録" ? <AppRegistrationIcon /> : <></>}
+                {page[0] === "カテゴリ一覧" ? <ListIcon /> : <></>}
+                {page[0] === "カテゴリ登録" ? <AppRegistrationIcon /> : <></>}
+                {page[0] === "作業一覧" ? <ListIcon /> : <></>}
+                {page[0] === "作業登録" ? <AppRegistrationIcon /> : <></>}
                 {page[0]}
               </Button>
             ))}

@@ -34,11 +34,7 @@ const WorkloadForm = () => {
     }
     setOpen(false);
   };
-  const {
-    control,
-    handleSubmit,
-    reset,
-  } = useForm<categoryFormType>();
+  const { control, handleSubmit, reset } = useForm<categoryFormType>();
   const onSubmit: SubmitHandler<categoryFormType> = async (data) => {
     console.log(transCategoryType(data));
     const category = transCategoryType(data);

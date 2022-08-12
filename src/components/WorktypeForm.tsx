@@ -44,11 +44,7 @@ const WorkTypeForm = () => {
     }
     setOpen(false);
   };
-  const {
-    control,
-    handleSubmit,
-    reset
-  } = useForm<worktypeFormType>();
+  const { control, handleSubmit, reset } = useForm<worktypeFormType>();
   const onSubmit: SubmitHandler<worktypeFormType> = async (data) => {
     console.log(transWorktype(data, user));
     const worktype = transWorktype(data, user);

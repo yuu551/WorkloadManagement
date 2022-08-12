@@ -19,6 +19,8 @@ import sha256 from "crypto-js/sha256";
 import { useQueryClient } from "react-query";
 import { WorkType } from "../types/Worktype";
 import { useMutateWorkloads } from "../hooks/useMutateWorkloads";
+import { Paper, Typography } from "@mui/material";
+import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -64,11 +66,7 @@ const WorkloadForm = () => {
     }
     setOpen(false);
   };
-  const {
-    control,
-    handleSubmit,
-    reset
-  } = useForm<workloadFormType>();
+  const { control, handleSubmit, reset } = useForm<workloadFormType>();
   const onSubmit: SubmitHandler<workloadFormType> = async (data) => {
     console.log(transWorkloadType(data, user));
     const workload = transWorkloadType(data, user);
@@ -105,157 +103,177 @@ const WorkloadForm = () => {
             工数を登録しました！
           </Alert>
         </Snackbar>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            sx={{
-              width: "400px",
+        <Paper
+          elevation={4}
+          sx={{
+            height: "680px",
+            width: "500px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
-            <Controller
-              control={control}
-              name="category"
-              defaultValue=""
-              rules={{
-                required: "カテゴリーは必須です！",
-              }}
-              render={({ field, fieldState: { error } }) => (
-                <TextField
-                  {...field}
-                  label="カテゴリー"
-                  id="select"
-                  fullWidth
-                  margin="normal"
-                  select
-                  error={Boolean(error)}
-                  helperText={error?.message}
-                  //※TODO
-                  //onChange={(e) => changeCategory(e)}
-                >
-                  {categories?.map((category: Category) => {
-                    return (
-                      <MenuItem
-                        key={category.category_id}
-                        value={category.category_id}
-                      >
-                        {category.category_name}
-                      </MenuItem>
-                    );
-                  })}
-                </TextField>
-              )}
-            />
-          </Box>
-          <Box sx={{ width: "400px" }}>
-            <Controller
-              name="content"
-              control={control}
-              defaultValue=""
-              rules={{
-                required: "作業内容は必須です！",
-              }}
-              render={({ field, fieldState: { error } }) => (
-                <TextField
-                  {...field}
-                  label="作業内容"
-                  margin="normal"
-                  fullWidth
-                  placeholder="作業内容"
-                  select
-                  error={Boolean(error)}
-                  helperText={error?.message}
-                >
-                  {worktypes?.map((worktype: WorkType) => {
-                    return (
-                      <MenuItem
-                        key={worktype.worktype_id}
-                        value={worktype.worktype_name}
-                      >
-                        {worktype.worktype_name}
-                      </MenuItem>
-                    );
-                  })}
-                </TextField>
-              )}
-            />
-          </Box>
-          <Box sx={{ width: "400px", textAlign: "cenetr" }}>
-            <Controller
-              name="work_day"
-              control={control}
-              defaultValue={new Date().toString()}
-              render={({ field }) => (
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  <DatePicker
+            <Typography variant="h5" textAlign="center">
+              工数登録
+            </Typography>
+            <AppRegistrationIcon sx={{ marginLeft: "5px", fontSize: "30px" }} />
+          </div>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Box width="400px" marginX="50px" marginTop="15px">
+              <Controller
+                control={control}
+                name="category"
+                defaultValue=""
+                rules={{
+                  required: "カテゴリーは必須です！",
+                }}
+                render={({ field, fieldState: { error } }) => (
+                  <TextField
                     {...field}
-                    label="作業日"
-                    inputFormat="yyyy年MM月dd日"
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        fullWidth
-                        margin="normal"
-                        defaultValue=""
-                      />
-                    )}
+                    label="カテゴリー"
+                    id="select"
+                    fullWidth
+                    margin="normal"
+                    select
+                    error={Boolean(error)}
+                    helperText={error?.message}
+                    //※TODO
+                    //onChange={(e) => changeCategory(e)}
+                  >
+                    {categories?.map((category: Category) => {
+                      return (
+                        <MenuItem
+                          key={category.category_id}
+                          value={category.category_id}
+                        >
+                          {category.category_name}
+                        </MenuItem>
+                      );
+                    })}
+                  </TextField>
+                )}
+              />
+            </Box>
+            <Box sx={{ width: "400px", marginX: "50px" }}>
+              <Controller
+                name="content"
+                control={control}
+                defaultValue=""
+                rules={{
+                  required: "作業内容は必須です！",
+                }}
+                render={({ field, fieldState: { error } }) => (
+                  <TextField
+                    {...field}
+                    label="作業内容"
+                    margin="normal"
+                    fullWidth
+                    placeholder="作業内容"
+                    select
+                    error={Boolean(error)}
+                    helperText={error?.message}
+                  >
+                    {worktypes?.map((worktype: WorkType) => {
+                      return (
+                        <MenuItem
+                          key={worktype.worktype_id}
+                          value={worktype.worktype_name}
+                        >
+                          {worktype.worktype_name}
+                        </MenuItem>
+                      );
+                    })}
+                  </TextField>
+                )}
+              />
+            </Box>
+            <Box sx={{ width: "400px", marginX: "50px" }}>
+              <Controller
+                name="work_day"
+                control={control}
+                defaultValue={new Date().toString()}
+                render={({ field }) => (
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <DatePicker
+                      {...field}
+                      label="作業日"
+                      inputFormat="yyyy年MM月dd日"
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          fullWidth
+                          margin="normal"
+                          defaultValue=""
+                        />
+                      )}
+                    />
+                  </LocalizationProvider>
+                )}
+              />
+            </Box>
+            <Box sx={{ width: "400px", marginX: "50px" }}>
+              <Controller
+                name="work_time"
+                control={control}
+                defaultValue=""
+                rules={{
+                  required: "作業時間は必須です！",
+                  pattern: {
+                    value: /^(0|[1-9]\d*)(\.\d+)?$/,
+                    message: "数値を入力してください！",
+                  },
+                }}
+                render={({ field, fieldState: { error } }) => (
+                  <TextField
+                    {...field}
+                    label="作業時間"
+                    margin="normal"
+                    fullWidth
+                    defaultValue=""
+                    placeholder="作業時間"
+                    error={Boolean(error)}
+                    helperText={error?.message}
                   />
-                </LocalizationProvider>
-              )}
-            />
-          </Box>
-          <Box sx={{ width: "400px", textAlign: "cenetr" }}>
-            <Controller
-              name="work_time"
-              control={control}
-              defaultValue=""
-              rules={{
-                required: "作業時間は必須です！",
-                pattern: {
-                  value: /^(0|[1-9]\d*)(\.\d+)?$/,
-                  message: "数値を入力してください！",
-                },
-              }}
-              render={({ field, fieldState: { error } }) => (
-                <TextField
-                  {...field}
-                  label="作業時間"
-                  margin="normal"
-                  fullWidth
-                  defaultValue=""
-                  placeholder="作業時間"
-                  error={Boolean(error)}
-                  helperText={error?.message}
-                />
-              )}
-            />
-          </Box>
-          <Box sx={{ width: "400px", textAlign: "center" }}>
-            <Controller
-              name="description"
-              control={control}
-              defaultValue=""
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  label="備考"
-                  margin="normal"
-                  fullWidth
-                  multiline
-                  rows={4}
-                  defaultValue=""
-                  placeholder="備考"
-                />
-              )}
-            />
-          </Box>
-          <Box sx={{ m: 2, textAlign: "center" }}>
-            <Button variant="contained" type="submit" sx={{ width: "100px" }}>
-              登録
-            </Button>
-          </Box>
-        </form>
+                )}
+              />
+            </Box>
+            <Box sx={{ width: "400px", marginX: "50px" }}>
+              <Controller
+                name="description"
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    label="備考"
+                    margin="normal"
+                    fullWidth
+                    multiline
+                    rows={4}
+                    defaultValue=""
+                    placeholder="備考"
+                  />
+                )}
+              />
+            </Box>
+            <Box sx={{ m: 2, textAlign: "center" }}>
+              <Button
+                variant="contained"
+                type="submit"
+                sx={{ marginTop: "18px", width: "120px", fontSize: "15px" }}
+              >
+                登録
+              </Button>
+            </Box>
+          </form>
+        </Paper>
       </Stack>
     </>
   );
