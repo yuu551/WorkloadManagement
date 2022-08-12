@@ -13,7 +13,7 @@ import { useAuth } from "../auth/AuthProvider";
 import { Link } from "react-router-dom";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import ListIcon from "@mui/icons-material/List";
-import AlarmOnIcon from '@mui/icons-material/AlarmOn';
+import AlarmOnIcon from "@mui/icons-material/AlarmOn";
 
 const pages = [
   ["工数一覧", "/"],
@@ -43,7 +43,9 @@ const Header = () => {
     <AppBar position="static">
       <Container maxWidth={false}>
         <Toolbar disableGutters>
-        <AlarmOnIcon sx={{marginRight:"5px", display:{xs: "none", md: "flex"} }}/>
+          <AlarmOnIcon
+            sx={{ marginRight: "5px", display: { xs: "none", md: "flex" } }}
+          />
           <Typography
             variant="h6"
             noWrap
@@ -126,7 +128,9 @@ const Header = () => {
               ))}
             </Menu>
           </Box>
-          <AlarmOnIcon sx={{marginRight:"5px", display: { xs: "flex", md: "none"} }}/>
+          <AlarmOnIcon
+            sx={{ marginRight: "5px", display: { xs: "flex", md: "none" } }}
+          />
           <Typography
             variant="h6"
             noWrap

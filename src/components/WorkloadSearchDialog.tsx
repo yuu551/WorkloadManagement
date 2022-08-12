@@ -49,9 +49,15 @@ const WorkloadSearchDialog = (props: DialogProps) => {
           <DialogContentText sx={{ textAlign: "center" }}>
             検索したい日付を入力してださい。
           </DialogContentText>
-          <form onSubmit={handleSubmit(onSubmit)} style={{display: "flex",
-                alignItems: "center",
-                justifyContent: "center",marginTop:"15px"}}>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              marginTop: "15px",
+            }}
+          >
             <Box
               sx={{
                 width: "400px",
