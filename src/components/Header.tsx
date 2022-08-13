@@ -159,7 +159,9 @@ const Header = () => {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>{user?.displayName}</Box>
+          <Box sx={{ flexGrow: 0 }}>
+            <Typography component={Link} to={"/dashboard"} sx={{ textDecoration: "none", color: "unset" }}>{user?.displayName}</Typography>
+          </Box>
         </Toolbar>
       </Container>
     </AppBar>

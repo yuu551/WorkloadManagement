@@ -7,6 +7,7 @@ import CategoryList from "../pages/CategoryList";
 import CategoryRegist from "../pages/CategoryRegist";
 import WorkTypeList from "../pages/WorktypeList";
 import WorktypeRegist from "../pages/WorktypeRegist";
+import Mypage from "../pages/Mypage";
 
 export function Routes() {
   return (
@@ -57,6 +58,14 @@ export function Routes() {
         element={
           <RequireAuth>
             <WorktypeRegist />
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/dashboard"
+        element={
+          <RequireAuth>
+            <Mypage />
           </RequireAuth>
         }
       />

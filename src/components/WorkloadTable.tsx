@@ -74,6 +74,8 @@ const TableList = () => {
   );
 };
 
+
+//TODO Util化
 const getDateString = (date: Date) => {
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
