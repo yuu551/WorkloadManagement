@@ -17,7 +17,6 @@ import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { Category } from "../types/Category";
 import sha256 from "crypto-js/sha256";
 import { useQueryClient } from "react-query";
-import { WorkType } from "../types/Worktype";
 import { useMutateWorkloads } from "../hooks/useMutateWorkloads";
 import { Paper, Typography } from "@mui/material";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
@@ -42,20 +41,7 @@ const WorkloadForm = () => {
   const [open, setOpen] = React.useState(false);
   const queryClient = useQueryClient();
   const categories = queryClient.getQueryData<Category[]>("categories");
-  const worktypes = queryClient.getQueryData<WorkType[]>("worktypes");
-  const [changeWorktypes, setChangeWorktypes] = React.useState<
-    WorkType[] | undefined
-  >(worktypes);
   const { createWorkloadMutation } = useMutateWorkloads();
-
-  const changeCategory = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const newWorktypes = changeWorktypes?.filter((val) => {
-      return val.category_id === parseInt(e.target.value);
-    });
-    setChangeWorktypes(newWorktypes);
-  };
 
   const handleClose = (
     event?: React.SyntheticEvent | Event,
@@ -144,8 +130,6 @@ const WorkloadForm = () => {
                     select
                     error={Boolean(error)}
                     helperText={error?.message}
-                    //※TODO
-                    //onChange={(e) => changeCategory(e)}
                   >
                     {categories?.map((category: Category) => {
                       return (
@@ -176,20 +160,9 @@ const WorkloadForm = () => {
                     margin="normal"
                     fullWidth
                     placeholder="作業内容"
-                    select
                     error={Boolean(error)}
                     helperText={error?.message}
                   >
-                    {worktypes?.map((worktype: WorkType) => {
-                      return (
-                        <MenuItem
-                          key={worktype.worktype_id}
-                          value={worktype.worktype_name}
-                        >
-                          {worktype.worktype_name}
-                        </MenuItem>
-                      );
-                    })}
                   </TextField>
                 )}
               />

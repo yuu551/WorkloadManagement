@@ -5,7 +5,6 @@ import sha256 from "crypto-js/sha256";
 
 const workloadsRef = collection(db, "workloads");
 const categoriesRef = collection(db, "categories");
-const worktypesRef = collection(db, "worktypes");
 
 const getCategories = async () => {
   const categoriesData = (
@@ -29,16 +28,4 @@ const getWorkloads = async (mailAddress: string) => {
   return workloads;
 };
 
-const getWorkTypes = async (mailAddress: string) => {
-  const hashedEmail = sha256(mailAddress).toString();
-  const worktypes = await getDocs(
-    query(
-      worktypesRef,
-      where("user_mail_address", "==", hashedEmail),
-      orderBy("worktype_id")
-    )
-  );
-  return worktypes;
-};
-
-export { getWorkloads, getCategories, getWorkTypes };
+export { getWorkloads, getCategories };

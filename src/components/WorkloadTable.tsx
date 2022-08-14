@@ -10,7 +10,6 @@ import { CircularProgress } from "@mui/material";
 import { Category } from "../types/Category";
 import { useAuth } from "../auth/AuthProvider";
 import { useQueryCategories } from "../hooks/useQueryCategories";
-import { useQueryWorktypes } from "../hooks/userQueryWorktypes";
 import { useQueryWorkloads } from "../hooks/useQueryWorkloads";
 
 const WorkloadTable = () => {
@@ -24,13 +23,11 @@ const WorkloadTable = () => {
 const TableList = () => {
   const { user } = useAuth();
   const { status: categoryStatus, data: categories } = useQueryCategories();
-  const { status: worktypeStatus } = useQueryWorktypes(user?.email);
   const { status: workloadStatus, data: workloads } = useQueryWorkloads(
     user?.email
   );
 
   if (
-    worktypeStatus === "loading" ||
     categoryStatus === "loading" ||
     workloadStatus === "loading"
   )

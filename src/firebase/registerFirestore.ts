@@ -1,7 +1,6 @@
 import { db } from "./init";
 import { Workload } from "../types/Workload";
 import { Category } from "../types/Category";
-import { WorkType } from "../types/Worktype";
 
 const registWorkload = async (data: Workload) => {
   await db.runTransaction(async (transaction) => {
@@ -58,31 +57,4 @@ const registCategory = async (data: Category) => {
   return data;
 };
 
-const registWorktype = async (data: WorkType) => {
-  await db.runTransaction(async (transaction) => {
-    const WorkTypeRef = await db.collection("worktypes");
-    const newWorkTypeRef = await WorkTypeRef.doc();
-
-    await transaction.get(newWorkTypeRef).then(async () => {
-      // 最新のtodoを1件のみ取得
-      const querySnapshot = await WorkTypeRef.orderBy("worktype_id", "desc")
-        .limit(1)
-        .get();
-      if (!querySnapshot) {
-        await newWorkTypeRef.set(data);
-        return;
-      }
-      const latestNum: WorkType = querySnapshot.docs.map((categoryData) => {
-        return categoryData.data() as WorkType;
-      })[0];
-      const newData = {
-        ...data,
-        worktype_id: latestNum ? latestNum.worktype_id + 1 : 0,
-      };
-      await transaction.set(newWorkTypeRef, newData);
-    });
-  });
-  return data;
-};
-
-export { registWorkload, registCategory, registWorktype };
+export { registWorkload, registCategory };

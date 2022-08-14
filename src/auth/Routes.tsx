@@ -5,8 +5,6 @@ import WorkloadList from "../pages/WorkloadList";
 import WorkloadRegist from "../pages/WorkloadRegist";
 import CategoryList from "../pages/CategoryList";
 import CategoryRegist from "../pages/CategoryRegist";
-import WorkTypeList from "../pages/WorktypeList";
-import WorktypeRegist from "../pages/WorktypeRegist";
 import Mypage from "../pages/Mypage";
 
 export function Routes() {
@@ -42,22 +40,6 @@ export function Routes() {
         element={
           <RequireAuth>
             <CategoryRegist />
-          </RequireAuth>
-        }
-      />
-      <Route
-        path="/worktype"
-        element={
-          <RequireAuth>
-            <WorkTypeList />
-          </RequireAuth>
-        }
-      />
-      <Route
-        path="/worktype-regist"
-        element={
-          <RequireAuth>
-            <WorktypeRegist />
           </RequireAuth>
         }
       />

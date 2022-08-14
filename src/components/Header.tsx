@@ -20,8 +20,6 @@ const pages = [
   ["工数登録", "/regist"],
   ["カテゴリ一覧", "/category"],
   ["カテゴリ登録", "/category-regist"],
-  ["作業一覧", "/worktype"],
-  ["作業登録", "/worktype-regist"],
 ];
 
 const Header = () => {
@@ -114,16 +112,6 @@ const Header = () => {
                   ) : (
                     <></>
                   )}
-                  {page[0] === "作業一覧" ? (
-                    <ListIcon sx={{ "margin-left": "10px" }} />
-                  ) : (
-                    <></>
-                  )}
-                  {page[0] === "作業登録" ? (
-                    <AppRegistrationIcon sx={{ "margin-left": "10px" }} />
-                  ) : (
-                    <></>
-                  )}
                 </MenuItem>
               ))}
             </Menu>
@@ -152,8 +140,6 @@ const Header = () => {
                 {page[0] === "工数登録" ? <AppRegistrationIcon /> : <></>}
                 {page[0] === "カテゴリ一覧" ? <ListIcon /> : <></>}
                 {page[0] === "カテゴリ登録" ? <AppRegistrationIcon /> : <></>}
-                {page[0] === "作業一覧" ? <ListIcon /> : <></>}
-                {page[0] === "作業登録" ? <AppRegistrationIcon /> : <></>}
                 {page[0]}
               </Button>
             ))}
