@@ -32,9 +32,9 @@ const WorkloadSearchDialog = (props: DialogProps) => {
     setOpen(false);
   };
 
-  const { control, handleSubmit, reset } = useForm<workloadSerachType>();
+  const { control, handleSubmit } = useForm<workloadSerachType>();
 
-  const onSubmit: SubmitHandler<workloadSerachType> = async (data) => {
+  const onSubmit: SubmitHandler<workloadSerachType> = async () => {
     console.log("test");
   };
 

@@ -11,7 +11,6 @@ import {
 import Title from "./Title";
 import { useQueryClient } from "react-query";
 import { Workload } from "../../types/Workload";
-import { el } from "date-fns/locale";
 
 type WorkTimeData = {
   workDay: string;

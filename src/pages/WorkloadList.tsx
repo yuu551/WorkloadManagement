@@ -2,7 +2,6 @@ import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import WorkloadTable from "../components/WorkloadTable";
 import Header from "../components/Header";
-import SearchIcon from "@mui/icons-material/Search";
 import WorkloadSearchDialog from "../components/WorkloadSearchDialog";
 
 const WorkloadList = () => {
