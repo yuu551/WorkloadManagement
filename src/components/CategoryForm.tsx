@@ -8,6 +8,8 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { Category } from "../types/Category";
 import { useMutateCategories } from "../hooks/useMutateCategories";
+import { Paper, Typography } from "@mui/material";
+import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -71,16 +73,30 @@ const WorkloadForm = () => {
             カテゴリを登録しました！
           </Alert>
         </Snackbar>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            sx={{
-              width: "400px",
+        <Paper
+          elevation={4}
+          sx={{
+            height: "480px",
+            width: "500px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
-            <Box sx={{ width: "400px", textAlign: "center" }}>
+            <Typography variant="h5" textAlign="center">
+              カテゴリー登録
+            </Typography>
+            <AppRegistrationIcon sx={{ marginLeft: "5px", fontSize: "30px" }} />
+          </div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <Box sx={{ width: "400px", textAlign: "center" }} marginX="50px" marginTop="15px">
               <Controller
                 name="category_name"
                 control={control}
@@ -101,8 +117,7 @@ const WorkloadForm = () => {
                 )}
               />
             </Box>
-          </Box>
-          <Box sx={{ width: "400px", textAlign: "cenetr" }}>
+          <Box sx={{ width: "400px", marginX: "50px" }}>
             <Controller
               name="description"
               control={control}
@@ -127,6 +142,7 @@ const WorkloadForm = () => {
             </Button>
           </Box>
         </form>
+        </Paper>
       </Stack>
     </>
   );
