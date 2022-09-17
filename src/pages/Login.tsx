@@ -5,7 +5,7 @@ import { Box } from "@mui/material";
 
 const uiConfig = {
   signInFlow: "/login",
-  signInSuccessUrl: "/dashboard",
+  signInSuccessUrl: "/",
   signInOptions: [Firebase.auth.EmailAuthProvider.PROVIDER_ID],
 };
 
